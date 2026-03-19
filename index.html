@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>旅プランジェネレーター｜行き先と好みでオリジナル旅程を自動作成</title>
+  <meta name="description" content="行き先・日数・予算・好みのジャンルを選ぶだけで、あなたにぴったりの旅行プランを自動生成。GW・夏休みの計画に！">
+  <meta property="og:title" content="旅プランジェネレーター｜オリジナル旅程を自動作成">
+  <meta property="og:description" content="行き先と好みを入れるだけで旅行プランを自動生成。無料で使える！">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="techio-base.css">
+  <link rel="stylesheet" href="techio-icons.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ヘッダー -->
+  <header class="t-header">
+    <div class="t-header__inner">
+      <div class="t-header__logo">
+        <div class="t-header__logo-icon">✈</div>
+        旅プランジェネレーター
+      </div>
+      <nav>
+        <ul class="t-header__nav">
+          <li><a href="https://techio-code.github.io/techio-portfolio/" target="_blank">ポートフォリオ</a></li>
+          <li><a href="https://note.com/techio_note" target="_blank" class="t-btn t-btn--primary t-btn--sm">noteを読む</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container container--md">
+
+    <!-- ヒーロー -->
+    <section class="hero">
+      <div class="hero__badge">
+        <span class="t-badge t-badge--primary">無料ツール</span>
+        <span class="t-badge t-badge--info">API不要</span>
+      </div>
+      <h1 class="hero__title">
+        あなただけの<br><span class="text-gradient">旅行プラン</span>を作ろう
+      </h1>
+      <p class="hero__subtitle">
+        行き先・日数・予算・好みを入れるだけ。<br>
+        GW・夏休み・週末旅…ぴったりのプランが完成！
+      </p>
+    </section>
+
+    <!-- ステップ表示 -->
+    <div class="steps-bar">
+      <div class="t-steps">
+        <div class="t-step t-step--active" id="step-indicator-1">
+          <span class="t-step__number">1</span>
+          <span>基本情報</span>
+        </div>
+        <div class="t-step__line" id="step-line-1"></div>
+        <div class="t-step" id="step-indicator-2">
+          <span class="t-step__number">2</span>
+          <span>好み・スタイル</span>
+        </div>
+        <div class="t-step__line" id="step-line-2"></div>
+        <div class="t-step" id="step-indicator-3">
+          <span class="t-step__number">3</span>
+          <span>プラン生成！</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 1: 基本情報 -->
+    <section class="step-section" id="step-1">
+      <div class="t-card">
+        <h2 class="step-title">
+          <i class="icon icon-map-pin icon--lg"></i>
+          STEP 1：旅の基本を決めよう
+        </h2>
+
+        <div class="form-group">
+          <label class="t-label">行き先 <span class="required">*</span></label>
+          <select class="t-select" id="input-destination">
+            <option value="">-- 行き先を選んでね --</option>
+            <optgroup label="🗾 国内・人気エリア">
+              <option value="tokyo">東京</option>
+              <option value="osaka">大阪</option>
+              <option value="kyoto">京都</option>
+              <option value="hokkaido">北海道</option>
+              <option value="okinawa">沖縄</option>
+              <option value="fukuoka">福岡</option>
+              <option value="nagoya">名古屋</option>
+              <option value="hiroshima">広島</option>
+              <option value="sendai">仙台</option>
+              <option value="kanazawa">金沢</option>
+            </optgroup>
+            <optgroup label="🌏 海外・アジア">
+              <option value="seoul">ソウル（韓国）</option>
+              <option value="taipei">台北（台湾）</option>
+              <option value="bangkok">バンコク（タイ）</option>
+              <option value="singapore">シンガポール</option>
+              <option value="hanoi">ハノイ（ベトナム）</option>
+            </optgroup>
+            <optgroup label="🌍 海外・欧米">
+              <option value="hawaii">ハワイ</option>
+              <option value="paris">パリ（フランス）</option>
+              <option value="newyork">ニューヨーク（アメリカ）</option>
+              <option value="london">ロンドン（イギリス）</option>
+              <option value="rome">ローマ（イタリア）</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group form-group--half">
+            <label class="t-label">日数 <span class="required">*</span></label>
+            <select class="t-select" id="input-days">
+              <option value="">-- 選択 --</option>
+              <option value="1">日帰り</option>
+              <option value="2">1泊2日</option>
+              <option value="3">2泊3日</option>
+              <option value="4">3泊4日</option>
+              <option value="5">4泊5日</option>
+              <option value="7">6泊7日</option>
+            </select>
+          </div>
+          <div class="form-group form-group--half">
+            <label class="t-label">予算（1人あたり）</label>
+            <select class="t-select" id="input-budget">
+              <option value="">-- 選択 --</option>
+              <option value="low">節約（〜3万円）</option>
+              <option value="medium">普通（3〜8万円）</option>
+              <option value="high">贅沢（8〜15万円）</option>
+              <option value="luxury">超贅沢（15万円〜）</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="t-label">誰と行く？</label>
+          <div class="companion-grid">
+            <button class="companion-btn" data-companion="solo" onclick="selectCompanion(this)">
+              <span class="companion-icon">🧑</span>
+              <span>ひとり旅</span>
+            </button>
+            <button class="companion-btn" data-companion="couple" onclick="selectCompanion(this)">
+              <span class="companion-icon">💑</span>
+              <span>カップル</span>
+            </button>
+            <button class="companion-btn" data-companion="friends" onclick="selectCompanion(this)">
+              <span class="companion-icon">👫</span>
+              <span>友達</span>
+            </button>
+            <button class="companion-btn" data-companion="family" onclick="selectCompanion(this)">
+              <span class="companion-icon">👨‍👩‍👧</span>
+              <span>家族</span>
+            </button>
+          </div>
+        </div>
+
+        <button class="t-btn t-btn--primary t-btn--lg t-btn--block" onclick="goToStep(2)">
+          次へ進む
+          <i class="icon icon-arrow-right icon--sm"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- STEP 2: 好み・スタイル -->
+    <section class="step-section hidden" id="step-2">
+      <div class="t-card">
+        <h2 class="step-title">
+          <i class="icon icon-zap icon--lg"></i>
+          STEP 2：旅のスタイルを教えて
+        </h2>
+
+        <!-- ジャンル選択 -->
+        <div class="form-group">
+          <label class="t-label">興味があるジャンル（最大3つ）<span class="required">*</span></label>
+          <div class="genre-grid" id="genre-grid">
+            <button class="genre-btn" onclick="toggleGenre(this)" data-genre="sightseeing">
+              <span class="genre-icon">🏛️</span>
+              <span class="genre-name">観光・名所</span>
+            </button>
+            <button class="genre-btn" onclick="toggleGenre(this)" data-genre="food">
+              <span class="genre-icon">🍜</span>
+              <span class="genre-name">グルメ</span>
+            </button>
+            <button class="genre-btn" onclick="toggleGenre(this)" data-genre="nature">
+              <span class="genre-icon">🌿</span>
+              <span class="genre-name">自然・絶景</span>
+            </button>
+            <button class="genre-btn" onclick="toggleGenre(this)" data-genre="culture">
+              <span class="genre-icon">⛩️</span>
+              <span class="genre-name">文化・歴史</span>
+            </button>
+            <button class="genre-btn" onclick="toggleGenre(this)" data-genre="shopping">
+              <span class="genre-icon">🛍️</span>
+              <span class="genre-name">ショッピング</span>
+            </button>
+            <button class="genre-btn" onclick="toggleGenre(this)" data-genre="nightlife">
+              <span class="genre-icon">🌃</span>
+              <span class="genre-name">夜遊び</span>
+            </button>
+            <button class="genre-btn" onclick="toggleGenre(this)" data-genre="relax">
+              <span class="genre-icon">♨️</span>
+              <span class="genre-name">温泉・癒し</span>
+            </button>
+            <button class="genre-btn" onclick="toggleGenre(this)" data-genre="activity">
+              <span class="genre-icon">🏄</span>
+              <span class="genre-name">アクティビティ</span>
+            </button>
+          </div>
+          <p class="tag-counter"><span id="genre-count">0</span> / 3 選択中</p>
+        </div>
+
+        <!-- ペース -->
+        <div class="form-group">
+          <label class="t-label">旅のペース</label>
+          <div class="pace-grid">
+            <button class="pace-btn" data-pace="relaxed" onclick="selectPace(this)">
+              <span class="pace-icon">🐢</span>
+              <span class="pace-name">のんびり</span>
+              <span class="pace-desc">余裕を持って楽しむ</span>
+            </button>
+            <button class="pace-btn selected" data-pace="normal" onclick="selectPace(this)">
+              <span class="pace-icon">🚶</span>
+              <span class="pace-name">バランス</span>
+              <span class="pace-desc">観光と休憩を両立</span>
+            </button>
+            <button class="pace-btn" data-pace="active" onclick="selectPace(this)">
+              <span class="pace-icon">🏃</span>
+              <span class="pace-name">ガッツリ</span>
+              <span class="pace-desc">とにかく回りたい</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- こだわり -->
+        <div class="form-group">
+          <label class="t-label">こだわりポイント（任意）</label>
+          <input type="text" class="t-input" id="input-preference" placeholder="例：写真映えする場所がいい、子連れでも安心な場所">
+        </div>
+
+        <div class="btn-row">
+          <button class="t-btn t-btn--ghost t-btn--lg" onclick="goToStep(1)">
+            戻る
+          </button>
+          <button class="t-btn t-btn--primary t-btn--lg" onclick="generate()">
+            プランを生成する！ ✈️
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 3: 結果 -->
+    <section class="step-section hidden" id="step-3">
+
+      <!-- ローディング -->
+      <div class="t-loading" id="loading">
+        <div class="t-spinner"></div>
+        <span>あなたにぴったりのプランを作成中...</span>
+      </div>
+
+      <!-- 結果 -->
+      <div id="results" class="hidden">
+        <div class="result-header">
+          <h2 class="result-heading">
+            <i class="icon icon-check icon--lg"></i>
+            旅行プランが完成！
+          </h2>
+          <p class="result-sub" id="result-summary"></p>
+        </div>
+
+        <!-- 日程カード -->
+        <div id="day-cards"></div>
+
+        <!-- 予算まとめ -->
+        <div class="budget-card t-card" id="budget-summary"></div>
+
+        <!-- 持ち物チェックリスト -->
+        <div class="checklist-card t-card" id="checklist"></div>
+
+        <!-- アクション -->
+        <div class="result-actions">
+          <button class="t-btn t-btn--success t-btn--lg" onclick="copyPlan()">
+            <i class="icon icon-copy icon--sm"></i>
+            プランをコピー
+          </button>
+          <button class="t-btn t-btn--secondary t-btn--lg" onclick="generate()">
+            もう一回生成する
+          </button>
+          <button class="t-btn t-btn--ghost t-btn--lg" onclick="goToStep(1)">
+            最初からやり直す
+          </button>
+        </div>
+
+        <!-- シェアボタン -->
+        <div class="share-section">
+          <p class="share-label">このアプリをシェアする</p>
+          <div class="share-buttons">
+            <a id="share-x" href="#" target="_blank" class="t-btn t-btn--sm" style="background:#000;color:#fff;">
+              𝕏 でシェア
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- フッター -->
+  <footer class="t-footer">
+    <div class="container">
+      <ul class="t-footer__links">
+        <li><a href="https://techio-code.github.io/techio-portfolio/">ポートフォリオ</a></li>
+        <li><a href="https://note.com/techio_note">note</a></li>
+        <li><a href="https://x.com/techio_code">X (Twitter)</a></li>
+      </ul>
+      <p>© 2026 てちお - コード知識ゼロでアプリを作る人</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
